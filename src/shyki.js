@@ -21,7 +21,7 @@ class LinkedList {
             this.length += 1;
             this._tail = new_Node;
         }
-        
+        return this
     }
 
     head() { return this._head ? this._head.data : null }
@@ -39,18 +39,16 @@ class LinkedList {
     }
 
     at(index) {
-        if (index > this.length -1) return 'Index out of range'
         return this.travel(index).data;
     }
 
     insertAt(index, data) {
         if (index - 1 > this.length ) return 'Out of range'
-        const prev = this.travel(index - 1) ? this.travel(index -1 ) : null ;
-        const next = this.travel(index) ? this.travel(index) : null;
+        const prev = this.travel(index - 1);
+        const next = this.travel(index);
         const newNode = new Node(data, prev, next);
-        prev ? prev.next = newNode : this._head = newNode; 
-        next ? next.prev = newNode : this._tail = newNode;
-        this.length += 1;
+        prev.next = newNode; next.prev = newNode; this.length += 1;
+        return this
     }
 
     isEmpty() { return this.length === 0 }
@@ -59,18 +57,17 @@ class LinkedList {
         this._head = null;
         this._tail = null;
         this.length = 0;
+        return this
     }
 
     deleteAt(index) {
-
         if (index - 1 > this.length ) return 'Out of range';
         const node = this.travel(index);
-        const prev = node.prev ? node.prev : null;
-        const next = node.next ? node.next : null;
+        const prev = node.prev;
+        const next = node.next;
         prev ? prev.next = next : this._head = next;
-        next ? next.prev = prev : this._tail = prev;      
-        this.length -= 1;  
-       
+        next? next.prev = prev : this._tail = prev;        
+        return this
     }
 
     reverse() {
@@ -84,6 +81,7 @@ class LinkedList {
         for (let i = 0; i < len; i++ ) {
             this.append(reverse[i])
         }
+        return this
     }
 
     indexOf(data) {
@@ -94,26 +92,10 @@ class LinkedList {
         }
         return -1
     }
+
+
 }
 
 const list = new LinkedList;
-list.append(1);
-list.append(2);
-list.append(3);
-list.append(4);
-list.append(5);
-list.append(6);
 
-list.reverse();
-console.log(list.at(0))
-
-console.log(list.at(1))
-
-console.log(list.at(2))
-
-console.log(list.at(3))
-
-console.log(list.at(4))
-
-console.log(list.at(5))
-
+list.append(4).reverse().deleteAt(0).clear().insertAt(0, 3);

@@ -21,7 +21,7 @@ class LinkedList {
             this.length += 1;
             this._tail = new_Node;
         }
-        
+        return this
     }
 
     head() { return this._head ? this._head.data : null }
@@ -48,6 +48,7 @@ class LinkedList {
         const next = this.travel(index);
         const newNode = new Node(data, prev, next);
         prev.next = newNode; next.prev = newNode; this.length += 1;
+        return this
     }
 
     isEmpty() { return this.length === 0 }
@@ -56,6 +57,7 @@ class LinkedList {
         this._head = null;
         this._tail = null;
         this.length = 0;
+        return this
     }
 
     deleteAt(index) {
@@ -65,6 +67,7 @@ class LinkedList {
         const next = node.next;
         prev ? prev.next = next : this._head = next;
         next? next.prev = prev : this._tail = prev;        
+        return this
     }
 
     reverse() {
@@ -78,6 +81,7 @@ class LinkedList {
         for (let i = 0; i < len; i++ ) {
             this.append(reverse[i])
         }
+        return this
     }
 
     indexOf(data) {
