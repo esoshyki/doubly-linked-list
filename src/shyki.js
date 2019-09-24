@@ -39,15 +39,18 @@ class LinkedList {
     }
 
     at(index) {
+        if (index > this.length -1) return 'Index out of range'
         return this.travel(index).data;
     }
 
     insertAt(index, data) {
         if (index - 1 > this.length ) return 'Out of range'
-        const prev = this.travel(index - 1);
-        const next = this.travel(index);
+        const prev = this.travel(index - 1) ? this.travel(index -1 ) : null ;
+        const next = this.travel(index) ? this.travel(index) : null;
         const newNode = new Node(data, prev, next);
-        prev.next = newNode; next.prev = newNode; this.length += 1;
+        prev ? prev.next = newNode : this._head = newNode; 
+        next ? next.prev = newNode : this._tail = newNode;
+        this.length += 1;
     }
 
     isEmpty() { return this.length === 0 }
@@ -59,12 +62,15 @@ class LinkedList {
     }
 
     deleteAt(index) {
+
         if (index - 1 > this.length ) return 'Out of range';
         const node = this.travel(index);
-        const prev = node.prev;
-        const next = node.next;
+        const prev = node.prev ? node.prev : null;
+        const next = node.next ? node.next : null;
         prev ? prev.next = next : this._head = next;
-        next? next.prev = prev : this._tail = prev;        
+        next ? next.prev = prev : this._tail = prev;      
+        this.length -= 1;  
+       
     }
 
     reverse() {
@@ -88,9 +94,26 @@ class LinkedList {
         }
         return -1
     }
-
-
 }
 
-module.exports = LinkedList;
+const list = new LinkedList;
+list.append(1);
+list.append(2);
+list.append(3);
+list.append(4);
+list.append(5);
+list.append(6);
+
+list.reverse();
+console.log(list.at(0))
+
+console.log(list.at(1))
+
+console.log(list.at(2))
+
+console.log(list.at(3))
+
+console.log(list.at(4))
+
+console.log(list.at(5))
 
