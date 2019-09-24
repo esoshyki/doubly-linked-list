@@ -31,7 +31,7 @@ class LinkedList {
     travel(index) {
         const next = (node) => node.next
         let node = this._head ? this._head : null;
-        if (!node) return 'List is empty';
+        if (!node) return null;
         for (let i=0; i<index; i++) {
             node = next(node) ? next(node) : 'Out of range'
         }
@@ -47,7 +47,7 @@ class LinkedList {
         const prev = this.travel(index - 1);
         const next = this.travel(index);
         const newNode = new Node(data, prev, next);
-        prev.next = newNode; next.prev = newNode; this.length += 1;
+        prev ? prev.next = newNode : null; next ? next.prev = newNode : null; this.length += 1;
         return this
     }
 
